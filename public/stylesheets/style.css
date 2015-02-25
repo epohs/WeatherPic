@@ -1,0 +1,19 @@
+html {
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color: black;
+}
+
+body {
+  padding: 50px;
+  font: 2em "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #fff;
+}
