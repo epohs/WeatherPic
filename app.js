@@ -14,7 +14,7 @@ var app = express();
 
 
 
-
+app.locals.app_root = path.resolve(__dirname);
 
 
 

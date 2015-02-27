@@ -11,11 +11,13 @@
     "debug": "~2.1.1",
     "dropbox": "0.10.3",
     "dropbox-node": "^0.4.0",
+    "exif": "^0.4.0",
     "express": "~4.11.1",
     "hjs": "~0.0.6",
     "moment": "^2.9.0",
     "morgan": "~1.5.1",
     "redis": "^0.12.1",
+    "request": "~2.53.0",
     "serve-favicon": "~2.2.0"
   }
 }
