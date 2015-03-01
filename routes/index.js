@@ -41,21 +41,9 @@ router.get('/', function(req, res, next) {
 
 	  } else {
 
-	    console.log('Reading from redis:');
-
-	    console.log(object);
-
 	    page_title = object.area;
 	    new_img = object.thumb;
-
-
-	    console.log('Time: ' + object.time_taken + ' GMT' + object.timezone);
-
-
-	    // @todo Gotta strip the colons out of the dates in order to be valid
-
-	    time_taken = moment("2015 02 26 08:41:53 GMT-0400").calendar();
-
+	    time_taken = my_dropbox.ParseTimeToMoment(object);
 
 	  }
 
@@ -69,5 +57,124 @@ router.get('/', function(req, res, next) {
 
 
 }); // router.get()
+
+
+
+
+
+
+
+
+
+
+/* AJAX to check for new image */
+router.get('/changed', function(req, res, next) {
+
+	var challenge = req.query.challenge;
+
+	if ( challenge ) {
+		res.render('changed', { challenge: challenge });
+	} else {
+		res.render('changed', { challenge: 'null' });
+	}
+
+
+});
+
+
+
+
+
+
+
+
+
+
+/* AJAX to check for new image */
+router.get('/check', function(req, res, next) {
+
+	console.log('-- BEGINNING THE AJAX CHECK FOR NEW IMAGES  --');
+
+	/**
+	* Check for changes on dropbox and wait for the results
+	* before we render the page.
+	*/
+	my_dropbox.check_for_changes(function(is_new){
+
+		console.log('Inside check_for_changes()...');
+
+		// No new changes on Dropbox
+		if (!is_new) {
+
+			console.log('Nothing new. Render.');
+
+			result_obj = {
+				"error": "false",
+				"is_new": "false",
+				"results": "null"
+			}
+
+			res.render('check_db', {
+				results: JSON.stringify(result_obj)
+			});
+
+		} else {
+
+			console.log('Found something. Dig deeper...');
+
+			// Something changed on dropbox since the
+			// last time we looked.
+			// Scan the directory to decide whether it
+			// was a new image.
+			my_dropbox.check_for_new_img(function(found_new){
+
+				console.log('Inside check_for_new_img()...');
+
+				if ( !found_new ) {
+
+					console.log('Nothing new.');
+
+					// No new image found.
+					result_obj = {
+						"error": "false",
+						"is_new": "false",
+						"results": "null"
+					}
+
+				} else {
+
+					console.log('Found a new image in the db folder. Get its info from Redis.');
+
+					redis_client.hgetall('latest_img', function(err, object) {
+
+						result_obj = {
+							"error": "false",
+							"is_new": "true",
+							"results": object
+						}
+
+					}); // hgetall()
+
+				}
+
+				console.log('Final Render.');
+
+				res.render('check_db', {
+					results: JSON.stringify(result_obj)
+				});
+
+
+			}); // check_for_new_img()
+
+		} // if (!is_new)
+
+	}); // check_for_changes()
+
+
+
+}); // router.get()
+
+
+
 
 module.exports = router;

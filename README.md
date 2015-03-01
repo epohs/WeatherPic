@@ -4,6 +4,8 @@ Grab a photo from Dropbox, get it's EXIF data and based on that, the weather inf
 
 I designed this on a Raspberry Pi B+ model, running [Raspbian](http://raspbian.org) and [RaspCTL](http://ip.raspctl.com) for dynamic DNS, and haven't tested on any other sytems or OSes, but I'd love to hear if anyone tries it on any other system.
 
+**NOTE:** *As of March 1, 2015 this is a total work in progress. Things are not working completely yet.*
+
 ## Requirements
 + [Node.js](http://nodejs.org)
 + [Redis Server](http://redis.io)
@@ -16,3 +18,10 @@ I designed this on a Raspberry Pi B+ model, running [Raspbian](http://raspbian.o
 + [Dropbox Core Docs](https://www.dropbox.com/developers/core/docs)
 + [NOAA Rest API](http://graphical.weather.gov/xml/rest.php#use_it)
 + [Weather info by Geo location](http://forecast.weather.gov/MapClick.php?lat=35.5951540&lon=-82.5521700&unit=0&lg=english&FcstType=json)
+
+
+### Todo
+
++ AJAX for image checking & automatic refresh.
++ Set a max size for the /img/ folder, with auto-pruning of older images.
++ Thumbnail display of previous images. 
