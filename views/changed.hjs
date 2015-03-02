@@ -1,1 +1,3 @@
-{{{challenge}}}
+{{#challenge}}
+{{ challenge }}
+{{/challenge}}

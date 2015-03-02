@@ -5,6 +5,8 @@ var moment = require('moment');
 var router = express.Router();
 
 
+var config = require('../config.json');
+
 var my_dropbox = require('../lib/my_dropbox');
 
 
@@ -67,20 +69,44 @@ router.get('/', function(req, res, next) {
 
 
 
-/* AJAX to check for new image */
+/* Validate the dropbox webhook */
 router.get('/changed', function(req, res, next) {
 
 	var challenge = req.query.challenge;
 
-	if ( challenge ) {
-		res.render('changed', { challenge: challenge });
-	} else {
-		res.render('changed', { challenge: 'null' });
-	}
-
+	res.render('changed', { challenge: challenge });
 
 });
 
+
+/* AJAX to check for new image */
+router.post('/changed', function(req, res, next) {
+
+	var is_valid_post = false;
+
+	var users = req.body.delta.users
+
+	console.log(req.body);
+
+	if ( users.length ) {
+
+	    for(var i = 0; i < users.length; i++) {
+	        if(users[i] == parseInt(config.dropbox.user_id)) {
+
+	        	console.log('This was a valid dropbox webhook response.');
+
+	        	my_dropbox.scan_changes();
+
+	        	is_valid_post = true;
+
+	        }
+	    }
+
+	}
+
+	res.render('changed', { valid_post: is_valid_post });
+
+}); // .post('/changed')
 
 
 
