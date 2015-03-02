@@ -1,6 +1,6 @@
 # WeatherPic
 
-Grab a photo from Dropbox, get it's EXIF data and, based on that the weather info for the time and location it was taken.
+Grab a photo from Dropbox, get it's EXIF data and, based on that the weather info for the location and time it was taken. Then display the weather data overlaying the photo on a simple webpage.
 
 The photo will be served from dropbox, and any changes (photos added, removed, or edited) within the app */img/* folder on Drobpox will trigger a [dropbox webhook](https://www.dropbox.com/developers/webhooks) to handle updates on our end.
 
