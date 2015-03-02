@@ -26,6 +26,6 @@ I designed this on a Raspberry Pi B+ model, running [Raspbian](http://raspbian.o
 
 ### Todo
 
-+ ~AJAX~ [webhook](https://www.dropbox.com/developers/webhooks) for image checking & automatic refresh.
++ ~~AJAX~~ [webhook](https://www.dropbox.com/developers/webhooks) for image checking & automatic refresh.
 + Set a max size for the /img/ folder, with auto-pruning of older images.
 + Thumbnail display of previous images. 
