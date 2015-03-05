@@ -10,7 +10,15 @@
   </head>
   <body>
     <h1>{{ title }}</h1>
-    <p>{{ time_taken }}</p>
+    <p class="time-taken">{{ time_taken }}</p>
+
+    {{# weather_data}}
+      <ul>
+        <li>{{weather_data.summary}}</li>
+        <li>{{temp}}</li>
+        <li>{{wind}}</li>
+      </ul>
+    {{/ weather_data}}
 
     {{ error }}
   </body>

@@ -10,7 +10,7 @@ var config = require('../config.json');
 var my_dropbox = require('../lib/my_dropbox');
 
 
-my_dropbox.check_for_changes();
+my_dropbox.check_for_new_img();
 
 
 
@@ -46,12 +46,17 @@ router.get('/', function(req, res, next) {
 	    page_title = object.area;
 	    new_img = object.thumb;
 	    time_taken = my_dropbox.ParseTimeToMoment(object);
+	    weather_data = JSON.parse(object.weather_data);
+
+	    console.log('weather_data');
+	    console.log(weather_data);
 
 	  }
 
 	  res.render('index', {
 	  	title: page_title,
 	  	time_taken: time_taken,
+	  	weather_data: weather_data,
 	  	error: err,
 	  	img: new_img });
 
